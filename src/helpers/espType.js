@@ -1,0 +1,19 @@
+export const espType = {
+  bug: "Bicho",
+  dark: "Siniestro",
+  dragon: "Dragón",
+  electric: "Eléctrico",
+  fairy: "Hada",
+  fighting: "Lucha",
+  fire: "Fuego",
+  flying: "Volador",
+  ghost: "Fantasma",
+  grass: "Planta",
+  ice: "Hielo",
+  normal: "Normal",
+  poison: "Veneno",
+  psychic: "Psíquico",
+  rock: "Roca",
+  steel: "Acero",
+  water: "Agua"
+}
