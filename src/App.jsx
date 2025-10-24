@@ -82,7 +82,7 @@ function App() {
             return <TypeBadge key={typeName} type={typeName} />;
           })}
         </div>
-          <img src={imageUrl} alt={pokemonName || 'pokemon'} style={{ maxWidth: 150 }} />
+          {imageUrl && <img src={imageUrl} alt={pokemonName || 'pokemon'} style={{ maxWidth: 150 }} />}
       </div>
 
           {
