@@ -15,5 +15,6 @@ export const espType = {
   psychic: "Psíquico",
   rock: "Roca",
   steel: "Acero",
-  water: "Agua"
+  water: "Agua",
+  ground: "Tierra"
 }

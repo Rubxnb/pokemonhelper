@@ -1,11 +1,12 @@
-// ...existing code...
 import { useState } from 'react'
-import './App.css'
+import './styles/App.css'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { getPokemon } from './api/pokemonApi'
 import TypeBadge from './components/typeBadge';
 import DefenseTypeBadge from './components/defenseTypeBadge';
+import { combineDefenses } from './helpers/calculateDoubleType';
+import { defense } from './helpers/defense';
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -47,45 +48,50 @@ function App() {
           try { return JSON.stringify(t); } catch { return String(t); }
         })
         .filter(Boolean);
+
+        console.log('normTypes types:', normTypes);
       setTypes(normTypes);
 
-      console.log('forms:', data.forms);
     } catch (err) {
       console.error(err);
       alert(`Error: ${err.message}`);
     }
   };
   return (
-    <>
-      <div>
-      <TextField
-      value={searchText}
-      onChange={(e) => setSearchText(e.target.value)}
-      id="outlined-basic" label="Nombre o ID" variant="outlined" />
-      <Button onClick={handleSearch} variant="contained">Buscar</Button>
+    <div className="app">
+
+      <div className="search-bar" style={{ display: 'flex', gap: 8 }}>
+        <TextField
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        id="outlined-basic" label="Nombre o ID" variant="outlined" />
+        <Button onClick={handleSearch} variant="contained">Buscar</Button>
       </div>
-      {pokemonName && (
-        <div style={{ marginTop: 16 }}>
-          <h2>{pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}</h2>
-          {types.length > 0 && (
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
-          <p style={{ margin: 0 }}>Tipo:</p>
-          {types.map((type, i) => (
-            <div key={`${type}-${i}`} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <TypeBadge type={type} />
-              <DefenseTypeBadge type={type} />
-            </div>
-          ))}
+
+      <div clasasName="pokemon-info"
+      style={{
+        marginTop: 24,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+        }}>
+        <h2>{pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)}</h2>
+        <div style={{ marginTop: 12, display: 'flex', gap: 6, justifyContent: 'center' }}>
+          {types.map((t) => {
+            const typeName = typeof t === "string" ? t : (t && (t.name || t.type)) || String(t);
+            return <TypeBadge key={typeName} type={typeName} />;
+          })}
         </div>
-      )}
-        </div>
-      )}
-      {imageUrl && (
-        <div style={{ marginTop: 16 }}>
-          <img src={imageUrl} alt={pokemonName || 'pokemon'} style={{ maxWidth: 300 }} />
-        </div>
-      )}
-    </>
+          <img src={imageUrl} alt={pokemonName || 'pokemon'} style={{ maxWidth: 150 }} />
+      </div>
+
+          {
+            types.length > 1 
+              ? <DefenseTypeBadge type={combineDefenses(types)} />
+              : <DefenseTypeBadge type={defense[types[0]]} />
+          }
+      
+    </div>
   )
 }
 

@@ -1,4 +1,3 @@
-// ...existing code...
 const BASE_URL = 'https://pokeapi.co/api/v2';
 const DEFAULT_TIMEOUT = 10000;
 
@@ -23,10 +22,7 @@ async function request(path, options = {}, timeout = DEFAULT_TIMEOUT) {
   }
 }
 
-export const getPokemon = async (nameOrId) => {const res = JSON.stringify(await request(`/pokemon/${encodeURIComponent(nameOrId)}`), null, 2)
-  console.log(res);
-  return res;
-};
+export const getPokemon = async (nameOrId) => JSON.stringify(await request(`/pokemon/${encodeURIComponent(nameOrId)}`), null, 2);
 export const getPokemons = (limit = 20, offset = 0) => request(`/pokemon?limit=${limit}&offset=${offset}`);
 export const getAbility = (ability) => request(`/ability/${encodeURIComponent(ability)}`);
 

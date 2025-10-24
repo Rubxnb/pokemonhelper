@@ -1,4 +1,3 @@
-// ...existing code...
 import Chip from '@mui/material/Chip';
 import { colorMap } from '../helpers/colorType';
 import { espType } from '../helpers/espType';
@@ -24,9 +23,11 @@ export default function TypeBadge({ type }) {
   return (
     <Chip
       label={label}
-      size="small"
-      style={{ backgroundColor: bg, color: "#fff" }}
+      size="large"
+      style={{ 
+        backgroundColor: bg,
+        color: "#fff",
+        border: "1pxsolid #000",}}
     />
   );
 }
-// ...existing code...
